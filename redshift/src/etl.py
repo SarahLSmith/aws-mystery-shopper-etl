@@ -30,6 +30,7 @@ def extract(body_text):
     next(reader)
 
     data = [row for row in reader]
+    # e.g., data = [{'Name': 'Alice', 'Age': '30', 'Role': 'Engineer'}, {'Name': 'Bob', 'Age': '25', 'Role': 'Designer'}]
 
     LOGGER.info(f'extract: done: rows={len(data)}')
     return data
