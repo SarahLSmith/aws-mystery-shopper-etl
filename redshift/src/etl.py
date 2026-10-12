@@ -36,12 +36,37 @@ def extract(body_text):
     return data
 
 
+# def remove_sensitive_information(data):
+#     LOGGER.info(f'remove_sensitive_information: processing rows={len(data)}')
+#     return [
+#         {k: v for k, v in item.items() if k != 'mystery_shopper_name'} for item in data
+#     ]
+
 def remove_sensitive_information(data):
     LOGGER.info(f'remove_sensitive_information: processing rows={len(data)}')
-    return [
-        {k: v for k, v in item.items() if k != 'mystery_shopper_name'} for item in data
-    ]
+    
+    sanitized_data = []
+    
+    #[
+#     {'mystery_shopper_name': 'Alice', 'age': '30', 'store_rating': '5'},
+#     {'mystery_shopper_name': 'Bob', 'age': '25', 'store_rating': '2'}
+# ]
+    for row in data:
+        # 1. Make a copy so we don't accidentally alter the original data
+        clean_row = row.copy()
+        
+        # 2. Safely remove the key (the 'None' prevents errors if the key is already missing)
+        clean_row.pop('mystery_shopper_name', None)
+        
+        # 3. Add the clean row to our new list
+        sanitized_data.append(clean_row)
 
+#     [
+#     {'age': '30', 'store_rating': '5'},
+#     {'age': '25', 'store_rating': '2'}
+# ]
+
+    return sanitized_data
 
 def reformat_number_of_store_employees(data):
     LOGGER.info(f'reformat_number_of_store_employees: starting')

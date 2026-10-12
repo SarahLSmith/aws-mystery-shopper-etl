@@ -64,9 +64,9 @@ def load_file(bucket_name, s3_key):
 #     }
 # }
     response = s3_client.get_object(Bucket=bucket_name, Key=s3_key)
-    #StreamingBody -> read() -> bytes -> decode('utf-8') -> str -> split('\n') -> list[str]
+    #StreamingBody -> read() -> bytes -> decode('utf-8') -> str -> splitlines() -> list[str]
     # e.g., body_text = ['Alice,30,Engineer', 'Bob,25,Designer', 'Charlie,35,Manager']
-    body_text = response['Body'].read().decode('utf-8').split('\n')
+    body_text = response['Body'].read().decode('utf-8').splitlines()
 
     LOGGER.info(f'load_file: done: s3_key={s3_key} result_chars={len(body_text)}')
     return body_text
