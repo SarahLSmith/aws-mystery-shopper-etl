@@ -1,0 +1,5 @@
+# build artefacts
+solution.zip
+etl-stack-packaged.yml
+__pycache__/
+*.pyc
